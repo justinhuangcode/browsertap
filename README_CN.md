@@ -1,4 +1,4 @@
-# browsertap
+# BrowserTap
 
 [English](./README.md) | **中文**
 
@@ -10,11 +10,11 @@
 [![Last Commit](https://img.shields.io/github/last-commit/justinhuangcode/browsertap?style=flat-square)](https://github.com/justinhuangcode/browsertap/commits/main)
 [![Issues](https://img.shields.io/github/issues/justinhuangcode/browsertap?style=flat-square)](https://github.com/justinhuangcode/browsertap/issues)
 
-接入你正在运行的浏览器。闭合 Agent 循环。Rust 构建。
+实时浏览器控制命令行工具，支持活跃标签捕获、DOM 交互与 Agent 自动化。 🌐
 
-browsertap 让 AI Agent 和 CLI 工具控制一个**已经打开、已经登录**的浏览器会话 -- 截图、JS 执行、冒烟测试、控制台捕获等 -- 无需启动无头浏览器实例或重新登录。
+接入你正在运行的浏览器，闭合 Agent 循环。browsertap 让 AI Agent 和 CLI 工具控制一个**已经打开、已经登录**的浏览器会话 -- 截图、JS 执行、冒烟测试、控制台捕获等 -- 无需启动无头浏览器实例或重新登录。
 
-## 为什么选择 browsertap？
+## 为什么选择 BrowserTap？
 
 与 Web 应用交互的 AI Agent 需要**看到并控制真实环境**。它们需要执行 JS、截图、检查控制台错误、点击按钮 -- 所有这些都在一个已经登录的浏览器中完成，拥有真实的 Cookie、真实的会话和真实的状态。
 

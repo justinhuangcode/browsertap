@@ -1,4 +1,4 @@
-# browsertap
+# BrowserTap
 
 **English** | [中文](./README_CN.md)
 
@@ -10,11 +10,11 @@
 [![Last Commit](https://img.shields.io/github/last-commit/justinhuangcode/browsertap?style=flat-square)](https://github.com/justinhuangcode/browsertap/commits/main)
 [![Issues](https://img.shields.io/github/issues/justinhuangcode/browsertap?style=flat-square)](https://github.com/justinhuangcode/browsertap/issues)
 
-Tap into your live browser. Close the agent loop. Built in Rust.
+A real-time browser control CLI for live tab capture, DOM interaction, and agent automation. 🌐
 
-browsertap lets AI agents and CLI tools control an **already-open, already-authenticated** browser session -- screenshots, JS execution, smoke tests, console capture, and more -- without spinning up headless instances or re-logging in.
+Tap into your live browser. Close the agent loop. browsertap lets AI agents and CLI tools control an **already-open, already-authenticated** browser session -- screenshots, JS execution, smoke tests, console capture, and more -- without spinning up headless instances or re-logging in.
 
-## Why browsertap?
+## Why BrowserTap?
 
 AI agents that interact with web apps need to **see and control the real thing**. They need to run JS, take screenshots, check console errors, and click buttons -- all in a browser that's already logged in with real cookies, real sessions, and real state.
 
