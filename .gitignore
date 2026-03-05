@@ -1,0 +1,24 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+
+# Node.js (browser runtime SDK)
+runtime/browser/node_modules/
+runtime/browser/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets (never commit)
+secret.key
+
+# Browsertap local state
+.browsertap/
