@@ -1,0 +1,41 @@
+{
+  "name": "@browsertap/runtime",
+  "version": "0.1.0",
+  "description": "Browser runtime SDK for browsertap - embed in your web app to enable CLI/agent control",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinhuangcode/browsertap.git",
+    "directory": "runtime/browser"
+  },
+  "homepage": "https://github.com/justinhuangcode/browsertap",
+  "keywords": [
+    "browser",
+    "automation",
+    "ai-agent",
+    "devtools",
+    "websocket",
+    "cli"
+  ],
+  "author": "Justin Huang <justinhuangcode@gmail.com>",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

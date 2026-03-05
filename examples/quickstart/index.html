@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>browsertap quickstart</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #0a0a0a; color: #e5e5e5; padding: 2rem; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    p { color: #a3a3a3; margin-bottom: 1.5rem; }
+    #status { padding: 1rem; border-radius: 8px; background: #171717; border: 1px solid #262626; margin-bottom: 1rem; font-family: monospace; font-size: 0.875rem; min-height: 3rem; }
+    button { background: #2563eb; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 0.875rem; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    button:disabled { background: #374151; cursor: not-allowed; }
+    .connected { border-color: #22c55e; }
+    .log { margin-top: 1rem; padding: 1rem; background: #171717; border: 1px solid #262626; border-radius: 8px; font-family: monospace; font-size: 0.8rem; max-height: 300px; overflow-y: auto; }
+    .log-entry { padding: 0.25rem 0; border-bottom: 1px solid #1f1f1f; }
+    .log-entry:last-child { border-bottom: none; }
+    code { background: #262626; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <h1>browsertap quickstart</h1>
+  <p>Connect this tab to browsertapd, then control it from the CLI.</p>
+
+  <div id="status">Ready to connect.</div>
+  <button id="connectBtn" onclick="connect()">Connect to browsertap</button>
+
+  <div class="log" id="log"></div>
+
+  <script type="module">
+    // Import the browsertap runtime SDK served from the workspace
+    import { createBrowserTapClient, createSessionStorageAdapter } from '/@browsertap/runtime/index.js';
+
+    function log(msg) {
+      const el = document.getElementById('log');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      el.prepend(entry);
+    }
+
+    const statusEl = document.getElementById('status');
+    const btn = document.getElementById('connectBtn');
+
+    const client = createBrowserTapClient({
+      storage: createSessionStorageAdapter(),
+      onStatus: (snap) => {
+        log(`status: ${snap.status}` + (snap.codename ? ` (${snap.codename})` : ''));
+        if (snap.status === 'connected') {
+          statusEl.textContent = `Connected as ${snap.codename}`;
+          statusEl.className = 'connected';
+          btn.disabled = true;
+          btn.textContent = `Connected: ${snap.codename}`;
+        } else if (snap.status === 'disconnected') {
+          statusEl.textContent = 'Disconnected.';
+          statusEl.className = '';
+          btn.disabled = false;
+          btn.textContent = 'Reconnect';
+        }
+      },
+      autoReconnectHandshake: () =>
+        fetch('/api/browsertap/handshake', { method: 'POST' }).then(r => r.json()),
+    });
+
+    window.connect = async function connect() {
+      btn.disabled = true;
+      btn.textContent = 'Connecting...';
+      log('requesting handshake...');
+
+      try {
+        const hs = await fetch('/api/browsertap/handshake', { method: 'POST' }).then(r => r.json());
+        log(`handshake OK: session=${hs.sessionId.slice(0, 8)}...`);
+        await client.startSession(hs);
+      } catch (err) {
+        log(`error: ${err.message}`);
+        statusEl.textContent = `Error: ${err.message}`;
+        btn.disabled = false;
+        btn.textContent = 'Retry';
+      }
+    };
+
+    // For fun: log some console messages so the CLI can see them
+    console.log('browsertap quickstart loaded');
+    console.log('page title:', document.title);
+    console.warn('this is a warning for demo purposes');
+  </script>
+</body>
+</html>

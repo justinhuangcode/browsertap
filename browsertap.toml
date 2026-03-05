@@ -1,0 +1,20 @@
+# browsertap.toml - Project configuration
+# Place this in your project root. The CLI walks up directories to find it.
+
+app_label = "MyApp"
+app_url = "http://localhost:3000"
+daemon_url = "https://127.0.0.1:4455"
+
+[daemon]
+host = "127.0.0.1"
+port = 4455
+
+[smoke]
+defaults = ["dashboard", "settings", "profile"]
+
+[smoke.presets]
+main = ["dashboard", "settings", "profile", "billing"]
+quick = ["dashboard"]
+
+[smoke.redirects]
+"/" = "/dashboard"
